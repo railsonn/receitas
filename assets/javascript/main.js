@@ -3,7 +3,7 @@ const API_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s='
 
 function params(){
   const url_params = new URLSearchParams(window.location.search)
-  return url_params.get('q')
+  return url_params.get('search')
 }
 
 
@@ -14,9 +14,20 @@ async function search(){
     return response.json()
   })
 
-  alert(receita.meals[0].strMeal)
+  return receita
 }
 
-search()
 
+async function main(){
+  var receita = await search()
+  change_page_title(receita.meals[0].strMeal)
+}
+
+
+function change_page_title(receita){
+  document.title = 'Receitas | '+receita
+}
+
+
+main()
 
